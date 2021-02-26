@@ -1,0 +1,44 @@
+﻿@model MailRequestViewModel
+@{
+    ViewData["Title"] = "Contact us";
+}
+<h5 class="display-3" style="font-size: 30px; margin-top:30px; margin-bottom: 30px;">@ViewData["Title"]</h5>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name">Name</label>
+                    <input class="form-control" type="text" placeholder="Name *" asp-for="Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ToEmail">To</label>
+                    <input class="form-control" type="email" placeholder="Email *" asp-for="ToEmail" />
+                    <span asp-validation-for="ToEmail" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Subject">Subject</label>
+                    <input class="form-control" type="text" placeholder="Subject *" asp-for="Subject" />
+                    <span asp-validation-for="Subject" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Body">Message</label>
+                    <textarea class="form-control" cols="3" rows="3" asp-for="Body"></textarea>
+                    <span asp-validation-for="Body" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Attachments</label>
+                    <input class="form-control-file" type="file" asp-for="Attachments" />
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-dark mr-5" style="width:40%">Send</button>
+                    <button type="button" class="btn btn-outline-dark">Cancel</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

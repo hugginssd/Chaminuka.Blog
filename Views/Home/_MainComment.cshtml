@@ -1,0 +1,22 @@
+﻿@*@page
+@model WebApplication3.Views.Home._MainCommentModel
+@{
+}*@
+@model  CommentViewModel
+
+    <div>
+        <form method="post" asp-controller="Home" asp-action="Comment">
+            <input asp-for="PostId" type="hidden" />
+            <input asp-for="MainCommentId" type="hidden" />
+
+            <div class="form-floating mb-3 w-75" style="margin-left:25px">
+                <textarea asp-for="Message" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" rows="3"></textarea>
+            </div>
+
+
+            <div style="margin-top: 10px;margin-left: 25px">
+                <button type="submit" class="btn btn-dark">Reply</button>
+            </div>
+        </form>
+    </div>
+

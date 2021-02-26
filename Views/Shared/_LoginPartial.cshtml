@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUsers> SignInManager
+@inject UserManager<ApplicationUsers> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+        </li>
+        <li class="nav-item dropdown nav-user">
+            <a class="nav-link text-dark nav-link nav-user-img" id="navbarDropdownMenuLink2" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="~/content/static/iconfinder_simpline_27_2305630.png"  alt="" class="user-avatar-md rounded-circle" style="width:20px;height:20px;">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
+                <div class="nav-user-info">
+                    <h5 class="mb-0 text-white nav-user-name">@User.Identity.Name </h5> <span class="status"></span><span class="ml-2">Available</span>
+                </div>
+                <a class="dropdown-item" asp-area="" asp-controller="Profile" asp-action="Index">
+                    <i class="fas fa-user mr-2">
+                    </i>
+                    Account
+                </a>
+                <a class="dropdown-item" href="#">
+                    <i class="fas fa-cog mr-2">
+                    </i>
+                    Settings
+                </a>
+                <a class="dropdown-item" asp-area="" asp-controller="Auth" asp-action="Logout">
+                    <i class="fas fa-power-off mr-2"></i>
+                    Sign out
+                </a>
+            </div>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Sign In</a>
+        </li>
+    }
+</ul>

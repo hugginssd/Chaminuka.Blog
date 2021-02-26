@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Post>
+@{
+    ViewData["Title"] = "Admin Panel |";
+}
+
+@*<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>*@
+<h2 class="display-3" style="font-size: 30px; margin-top:30px; margin-bottom: 30px;">Admin Panel</h2>
+
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <input class="form-control" type="search" placeholder="Search here..." />
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <input id="btnsubmit" class="btn btn-success" type="submit" value="Search" />
+            <input id="btnclear" class="btn btn-success" type="button" value="Clear" />
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <button class="btn btn-outline-dark" asp-controller="Panel" asp-action="Edit">
+                Add New Post
+            </button>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+
+    </div>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var post in Model)
+                {
+                    <tr>
+                        <td>@post.Id</td>
+                        <td>@post.Title</td>
+                        <td>
+                            <a asp-controller="Panel" asp-action="Edit" asp-route-id="@post.Id">
+                                Edit
+                            </a>
+                            -
+                            <a asp-controller="Panel" asp-action="Remove" asp-route-id="@post.Id">
+                                Remove
+                            </a>
+                            -
+                            <a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">
+                                View Post
+                            </a>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

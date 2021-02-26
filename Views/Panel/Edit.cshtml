@@ -1,0 +1,134 @@
+﻿@*@{
+        ViewData["Title"] = "Privacy Policy";
+    }
+    <h1>@ViewData["Title"]</h1>
+
+    <p>Use this page to detail your site's privacy policy.</p>*@
+@model PostViewModel
+
+@{
+    //ViewData["Title"] = "Edit Post |";
+    ViewBag.Title = @Model.Title;
+    ViewBag.Description = @Model.Description;
+    ViewBag.Keywords = $"{Model.Tags?.Replace(",", " ")} {Model.Category}";//"blog programming tech dynamics azure software";
+}
+<link href="~/lib/Trumbowyg-master/Trumbowyg-master/dist/ui/trumbowyg.min.css" rel="stylesheet" />
+<link href="~/lib/Trumbowyg-master/Trumbowyg-master/dist/plugins/emoji/ui/trumbowyg.emoji.min.css" rel="stylesheet" />
+
+<h5 class="display-3" style="font-size: 30px; margin-top:30px; margin-bottom: 30px;">Ask your question</h5>
+
+<div>
+    <form asp-controller="Panel" asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div>
+            <label>Title</label>
+            <div class="input-group mb-3">
+                <input class="form-control" asp-for="Title" placeholder="Ask your question here..." />
+            </div>
+        </div>
+        <div>
+            <label>Description</label>
+            <div class="input-group mb-3">
+                <input class="form-control" asp-for="Description" placeholder="Write a short description of your problem here..." />
+            </div>
+        </div>
+        <div>
+            <label>Body</label>
+            <textarea id="editor" asp-for="Body"></textarea>
+        </div>
+        <div>
+            <label>Image</label>
+            <div>
+                <input asp-for="CurrentImage" type="hidden" />
+                <input asp-for="Image" />
+            </div>
+        </div>
+        <div>
+            <label>Tags</label>
+            <div class="input-group" style="margin-right: 90px;">
+                <input class="form-control" asp-for="Tags" autocomplete="on" placeholder="E.g: Azure DevOps, D365FO, etc" />
+            </div>
+        </div>
+        <div>
+            <label>Category</label>
+            <div class="input-group mb-3">
+                <select class="custom-select" asp-for="Category">
+                    <option selected>Select category</option>
+                    <option value="Azure">Azure</option>
+                    <option value="Dynamics365BC">Dynamics 365 Business Central</option>
+                    <option value="Dynamics365FO">Dynamics 365 Finance and Operations</option>
+                    <option value="DynamicsAX">Dynamics AX</option>
+                    <option value="ProjectManagement">Project Management</option>
+                    <option value="CloudFlows">Cloud Flows</option>
+                </select>
+            </div>
+        </div>
+        <input class="btn btn-dark" type="submit" value="Submit" />
+    </form>
+</div>
+
+@section scripts {
+    <script src="~/lib/Trumbowyg-master/Trumbowyg-master/dist/plugins/base64/trumbowyg.base64.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
+    <script src="~/lib/Trumbowyg-master/Trumbowyg-master/dist/trumbowyg.min.js"></script>
+    <script src="~/lib/Trumbowyg-master/Trumbowyg-master/dist/plugins/upload/trumbowyg.upload.min.js"></script>
+    <script src="~/lib/Trumbowyg-master/Trumbowyg-master/dist/plugins/pasteimage/trumbowyg.pasteimage.min.js"></script>
+    <script src="~/lib/Trumbowyg-master/Trumbowyg-master/dist/plugins/emoji/trumbowyg.emoji.min.js"></script>
+    @*Import Trumbowyg plugins*@
+    <script src="trumbowyg/dist/plugins/allowtagsfrompaste/trumbowyg.allowtagsfrompaste.min.js"></script>
+    <script>
+        $('#editor').trumbowyg();
+        $('#editor').trumbowyg({
+            plugins: {
+                allowTagsFromPaste: {
+                    allowedTags: ['h4', 'p', 'br', 'strong']
+                }
+            }
+        });
+        $('#editor').trumbowyg({
+            btns: [
+                ['base64']
+            ]
+        });
+        $('#editor').trumbowyg({
+            btns: [
+                ['emoji']
+            ]
+        });
+        $('#editor')
+            .trumbowyg({
+                btnsDef: {
+                    // Create a new dropdown
+                    image: {
+                        dropdown: ['insertImage', 'upload'],
+                        ico: 'insertImage'
+                    }
+                },
+                // Redefine the button pane
+                btns: [
+                    ['viewHTML'],
+                    ['formatting'],
+                    ['strong', 'em', 'del'],
+                    ['superscript', 'subscript'],
+                    ['link'],
+                    ['image'], // Our fresh created dropdown
+                    ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                    ['unorderedList', 'orderedList'],
+                    ['horizontalRule'],
+                    ['removeformat'],
+                    ['fullscreen']
+                ],
+                plugins: {
+                    // Add imagur parameters to upload plugin for demo purposes
+                    upload: {
+                        serverPath: 'https://api.imgur.com/3/image',
+                        fileFieldName: 'image',
+                        headers: {
+                            'Authorization': 'Client-ID xxxxxxxxxxxx'
+                        },
+                        urlPropertyName: 'data.link'
+                    }
+                }
+            });
+    </script>
+}
