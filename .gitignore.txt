@@ -1,0 +1,3 @@
+#Ignore all json files
+#Skipping all Json files, they carry sensitive data
+*.json
