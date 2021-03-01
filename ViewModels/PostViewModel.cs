@@ -20,5 +20,6 @@ namespace WebApplication3.ViewModels
         public ApplicationUsers User { get; set; }
         public string CurrentImage { get; set; } = "";
         public IFormFile Image { get; set; } = null ;
+        public int PostId { get; set; } 
     }
 }

@@ -21,7 +21,9 @@ namespace WebApplication3.Controllers
 
         public UserManager<ApplicationUsers> _userManager;
 
-        public PanelController(IRepository repo, IFileManager fileManager, UserManager<ApplicationUsers> userManager)
+        public PanelController(IRepository repo, 
+                               IFileManager fileManager, 
+                               UserManager<ApplicationUsers> userManager)
         {
             _repo        = repo;
 
@@ -29,6 +31,7 @@ namespace WebApplication3.Controllers
 
             _userManager = userManager;
         }
+       
         public IActionResult Index()
         {
             var posts = _repo.GetAllPosts();
@@ -36,12 +39,6 @@ namespace WebApplication3.Controllers
 
         }
 
-        //public IActionResult Post(int id)
-        //{
-        //    var post = _repo.GetPost(id);
-        //    return View(post);
-
-        //}
         [Authorize]
         [HttpGet]
         public IActionResult Edit(int? id)
@@ -115,6 +112,7 @@ namespace WebApplication3.Controllers
             return View(post);
 
         }
+       
         [Authorize(Roles ="Admin,Member")]
         [HttpGet]
         public async Task<IActionResult> Remove(int id)
@@ -123,5 +121,7 @@ namespace WebApplication3.Controllers
             await _repo.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+   
+        
     }
 }

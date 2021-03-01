@@ -87,8 +87,13 @@ namespace WebApplication3
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "home",
+                    pattern: "Home/Post/{id?}/{*article}",
+                    defaults: new { controller = "Home", action = "Post" });
+
+                endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}/{**title}");
             });
         }
     }

@@ -11,23 +11,25 @@
 <div class="card w-75">
     <div class="card-body">
         <h3>@Model.Title</h3>
-        <p class="post-meta">
-            <cite title="Source Title">
-                @if (!String.IsNullOrEmpty(Model.UserId))
-                {
-                    var context = UserManager.Users
-                                        .Where(un => un.Id == Model.UserId)
-                                        .FirstOrDefault()
-                                        .UserName;
-                    <a href="#">@context</a>
-                }
-                else
-                {
-                    <a href="#">Anonymous</a>
-                } @Model.Created
-            </cite>
-        </p>
-
+        <div class="row">
+            <p class="post-meta">
+                <cite title="Source Title" style="font-size:12px">
+                    Posted by
+                    @if (!String.IsNullOrEmpty(Model.UserId))
+                    {
+                        var context = UserManager.Users
+                                            .Where(un => un.Id == Model.UserId)
+                                            .FirstOrDefault()
+                                            .UserName;
+                        <a href="#">@context</a>
+                    }
+                    else
+                    {
+                        <a href="#">Anonymous</a>
+                    } @Model.Created
+                </cite>
+            </p>
+        </div>
         @if (String.IsNullOrEmpty(Model.Image))
         {
             var image_path = $"/Image/{Model.Image}";
@@ -51,6 +53,15 @@
                 }
             }
         </p>
+        <div style="margin-right: 15px">
+            <a href="#" class="text-dark" style="margin-right: 15px" role="checkbox" asp-controller="Likes" asp-action="Like">
+                <img src="https://img.icons8.com/material-outlined/72/like-message.png" alt="" class="user-avatar-md rounded-circle" style="width:15px;height:15px;" />
+                Likes
+            </a>
+            <a href="#" class="text-dark" style="margin-left: 15px">
+                Action
+            </a>
+        </div>
     </div>
 </div>
 <div style="margin-top: 25px; margin-bottom:25px">
@@ -81,7 +92,7 @@
                         else
                         {
                             <a href="#">Anonymous</a>
-                        } @Model.Created
+                        } @c.Created
                     </cite>
                 </footer>
             </div>
@@ -104,7 +115,7 @@
                     </p>
                     <footer class="blockquote-footer">
                         <cite title="Source Title">
-                            Replied by :
+                            Commented by :
                             @if (!String.IsNullOrEmpty(cm.UserId))
                             {
                                 var context = UserManager.Users
@@ -116,7 +127,7 @@
                             else
                             {
                                 <a href="#">Anonymous</a>
-                            } @Model.Created
+                            } @cm.Created
                         </cite>
                     </footer>
                 </div>

@@ -41,7 +41,7 @@ namespace WebApplication3.Controllers
             {
                 var result = await _signInManager.PasswordSignInAsync(vm.UserName, vm.Password, false, false);
                 if (result.Succeeded)
-                {
+                { 
                         //If the user is not a forum member show dashboard else go to home page
                         //return RedirectToAction("Index", "Panel");
                     
