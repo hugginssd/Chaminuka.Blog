@@ -5,29 +5,71 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication3.Data;
-using WebApplication3.Data.Admin;
+using WebApplication3.Data.Profile;
 using WebApplication3.Models;
+using WebApplication3.Models.Profile;
+using WebApplication3.ViewModels;
 
 namespace WebApplication3.Controllers
 {
     public class ProfileController : Controller
     {
+        public IProfile _profile;
+
         public AppDbContext _ctx;
-
-        internal IProfile _iprofile;
-
         public UserManager<ApplicationUsers> _userManager;
 
         public ProfileController(AppDbContext ctx, IProfile profile, UserManager<ApplicationUsers> userManager)
         {
+            _profile = profile;
             _ctx = ctx;
-            _iprofile = profile;
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+
+        public IActionResult Profile()
         {
             return View();
+        }
+        public IActionResult MyProfile()
+        {
+            var myPosts = _profile.GetMyPosts();
+            return View(myPosts);
+        }
+
+        public IActionResult Update()
+        {
+            
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(ProfileViewModel pvm)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var profile = new Profiles
+            {
+                Bio  = pvm.Bio,
+                User = pvm.User,
+                Company = pvm.Company,
+                Location = pvm.Location,
+                Type     = pvm.Type,
+                PrimaryRole = pvm.PrimaryRole,
+                Industry = pvm.Industry
+
+            };
+
+            _profile.AddProfile(profile);
+            if (await _profile.SaveChangesAsync())
+            {
+                return RedirectToAction("MyProfile", "Profile");
+            }
+            return View(profile);
+        }
+        [HttpGet]
+        public IActionResult GetActivity()
+        {
+            var myPosts = _profile.GetMyPosts();
+            return View(myPosts);
         }
     }
 }

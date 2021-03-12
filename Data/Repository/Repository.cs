@@ -114,5 +114,14 @@ namespace WebApplication3.Data.Repository
         {
             _ctx.Likes.Remove(likes);
         }
+
+        public ApplicationUsers GetProfile(string userName)
+        {
+            var context = _ctx
+                           .Users
+                           .Where(un => un.UserName == userName)
+                           .First();
+            return (ApplicationUsers)context;
+        }
     }
 }

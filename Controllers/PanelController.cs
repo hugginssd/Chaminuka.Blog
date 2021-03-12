@@ -107,7 +107,7 @@ namespace WebApplication3.Controllers
 
             if (await _repo.SaveChangesAsync())
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
             return View(post);
 

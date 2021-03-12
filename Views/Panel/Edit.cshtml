@@ -1,10 +1,4 @@
-﻿@*@{
-        ViewData["Title"] = "Privacy Policy";
-    }
-    <h1>@ViewData["Title"]</h1>
-
-    <p>Use this page to detail your site's privacy policy.</p>*@
-@model PostViewModel
+﻿@model PostViewModel
 
 @{
     //ViewData["Title"] = "Edit Post |";
@@ -53,11 +47,14 @@
             <div class="input-group mb-3">
                 <select class="custom-select" asp-for="Category">
                     <option selected>Select category</option>
-                    <option value="Azure">Azure</option>
-                    <option value="Dynamics365BC">Dynamics 365 Business Central</option>
-                    <option value="Dynamics365FO">Dynamics 365 Finance and Operations</option>
-                    <option value="DynamicsAX">Dynamics AX</option>
-                    <option value="ProjectManagement">Project Management</option>
+                    <option value="Azure">Microsoft Azure</option>
+                    <option value="Coding">Coding</option>
+                    <option value="Dynamics365BC">Microsoft Dynamics 365 Business Central</option>
+                    <option value="Dynamics365FO">Microsoft Dynamics 365 Finance and Operations</option>
+                    <option value="DynamicsGP">Microsoft Dynamics Great Plains</option>
+                    <option value="DynamicsAX">Microsoft Dynamics AX</option>
+                    <option value="Nav">Microsoft Dynamics Nav</option>
+                    <option value="ProjectManagement">Microsoft Project Management</option>
                     <option value="CloudFlows">Cloud Flows</option>
                 </select>
             </div>

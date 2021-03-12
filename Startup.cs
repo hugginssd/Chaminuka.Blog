@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using WebApplication3.Data;
 using WebApplication3.Data.FileManager;
 using WebApplication3.Data.MailService;
+using WebApplication3.Data.Profile;
 using WebApplication3.Data.Repository;
 using WebApplication3.Data.Services;
 using WebApplication3.Models;
@@ -54,11 +55,13 @@ namespace WebApplication3
 
             services.AddTransient<IRepository, Repository>();
             services.AddTransient<IFileManager, FileManager>();
+            services.AddTransient<IProfile, Profile>();
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddTransient<IMailService, MailService>();
             services.AddMvc(options => {
                 options.CacheProfiles.Add("Monthly", new CacheProfile { Duration = 60 * 60 * 24 * 7 * 4 });
             });
+            services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

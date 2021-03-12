@@ -1,0 +1,121 @@
+﻿@model IndexViewModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUsers> SignInManager
+@inject UserManager<ApplicationUsers> UserManager
+
+@{
+    ViewData["Title"] = "Profile";
+}
+@*<head>
+        <title>Bootstrap Example</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>*@
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+
+            <div class="text-left mt-lg-5 mb-lg-5">
+                <h1 class="display-3" style="font-size: 30px; margin-top:20px;">Profile</h1>
+                <p class="display-4" style="font-size: 25px;">Bio</p>
+                <p>
+                    Professional Software Engineer and developer who focused on the Microsoft stack of technologies with significant experience ranging from Microsoft Dynamics AX 2009,
+                    Microsoft Dynamics AX 2012 Dynamics 365 Finance and Operations , Supply Chain Management, Azure Cloud, and Azure DevOps.
+                </p>
+
+                <p>
+                    For more than 5 years, I have installed, configured, developed, and managed business-critical systems for plenty of companies. During this time,
+                    I am working across many industries, including manufacturing, distribution, finance, and professional services.
+                </p>
+
+            </div>
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                        Activity
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                        Badges
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
+                        Groups
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="friends-tab" data-toggle="tab" href="#friends" role="tab" aria-controls="friends" aria-selected="false">
+                        Friends
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="likes-tab" data-toggle="tab" href="#likes" role="tab" aria-controls="likes" aria-selected="false">
+                        Likes
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="false">
+                        Posts
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    ...
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="row">
+                        <div class="mt-5" style="width: 18rem">
+                            <img src="https://images.youracclaim.com/size/680x680/images/11636db1-f9fa-4669-b13c-9a15f0d81ab0/EXAM-Associate-MB-500.png"
+                                 style="width: 50px; height: 50px;"
+                                 class="card-img-top"
+                                 alt="..." />
+                        </div>
+                        <div class="mt-5" style="width: 18rem">
+                            <img src="https://images.youracclaim.com/size/680x680/images/11636db1-f9fa-4669-b13c-9a15f0d81ab0/EXAM-Associate-MB-500.png"
+                                 style="width: 50px; height: 50px;"
+                                 class="card-img-top"
+                                 alt="..." />
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    ...
+                </div>
+                <div class="tab-pane fade" id="friends" role="tabpanel" aria-labelledby="friends-tab">
+                    ...
+                </div>
+                <div class="tab-pane fade" id="likes" role="tabpanel" aria-labelledby="likes-tab">
+                    ...
+                </div>
+                <div class="tab-pane fade" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                    ...
+                </div>
+            </div>
+        </div>
+        <div class="col-md-auto">
+            <div class="mt-5" style="width: 18rem; padding-top: 30px;">
+                <img src="https://lledogrupo.com/wp-content/uploads/2018/04/user-img-1.png"
+                     style="width:85px; height:85px; margin-top:45px; margin-left:40px;"
+                     class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="display-3 ml-3" style="font-size: 20px;">Profile photo</h5>
+                </div>
+            </div>
+            <div class="ml-4">
+                <a class="btn btn-outline-dark" asp-controller="Profile" asp-action="Update">
+                    Edit my profile
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

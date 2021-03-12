@@ -4,7 +4,7 @@
 @inject UserManager<ApplicationUsers> UserManager
 @{
     //ViewData["Title"] = "Chaminuka";
-    ViewBag.Title = "Chaminuka - Playing ground for tech professionals";
+    ViewBag.Title = "Casterisks - Playing ground for tech professionals";
  ViewBag.Description = "Playing grong for tech professionals";
  ViewBag.Keywords = "blog programming tech dynamics azure software";
  var base_path = Context.Request.PathBase;
@@ -15,13 +15,8 @@
 <div class="text-center mt-lg-5 mb-lg-5">
     <h1 class="display-4">Join discussion</h1>
     <p>
-        Start sharing knowledge <a asp-controller="Auth" asp-action="Register">here</a>.
+        Start sharing knowledge <a asp-controller="Panel" asp-action="Edit">here</a>.
     </p>
-
-    @*<div style="margin-left:5px">
-            <marquee style="margin-left: 75px;" behaviour="slide" direction="up" ><p> Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p></marquee>
-        </div>*@
-
 </div>
 
 
@@ -40,6 +35,7 @@
                                 @post.Title
                             </h3>
                         </a>
+
                         <p class="post-subtitle">
                             @post.Description
                         </p>
@@ -55,7 +51,8 @@
                                                         .Where(un => un.Id == post.UserId)
                                                         .First()
                                                         .UserName)?.ToString();
-                                        <a href="#">@context</a>
+
+                                        <a asp-controller="Profile" asp-action="Profile">@context</a>
 
                                     }
                                     else
@@ -92,7 +89,7 @@
 
 
         <!-- Sidebar Widgets Column -->
-        <div class="col-sm-3 ml-auto">
+        <div class="col-sm-3 justify-content-sm-center ml-auto">
 
             <div class="card text-center mb-3" style="width: 18rem; ">
                 <div class="card-body">
@@ -119,8 +116,6 @@
                 </div>
             </div>
 
-
-
             <!-- Categories -->
             <div class="card my-4" style="width: 18rem;">
                 <h6 class="card-header">Categories</h6>
@@ -128,30 +123,24 @@
                     <div class="row">
                         <div>
                             <ul class="list-unstyled mb-0">
-                                <li>
-                                    <a asp-controller="Home" asp-action="Post" asp-route-category="Azure">Azure </a>(3)
+                                <li style="margin-bottom:10px">
+                                    <a asp-controller="Home" asp-action="Azure">Azure </a>(3)
                                 </li>
-                                @* <hr style="margin-top: 5px; margin-bottom:5px" />*@
-                                <li>
-                                    <a asp-controller="Home" asp-action="Post" asp-route-category="Dynamics365BC">Dynamics 365 Business Central </a>(4)
+                                <li style="margin-bottom:10px">
+                                    <a asp-controller="Home" asp-action="BusinessCentral">Dynamics 365 Business Central </a>(4)
                                 </li>
-                                @*<hr style="margin-top: 5px; margin-bottom: 5px" />*@
-                                <li>
-                                    <a asp-controller="Home" asp-action="Post" asp-route-category="DynamicsAX">Dynamics AX </a>(9)
+                                <li style="margin-bottom:10px">
+                                    <a asp-controller="Home" asp-action="AX365">Dynamics AX </a>(9)
                                 </li>
-                                @*<hr style="margin-top: 5px; margin-bottom:5px" />*@
-                                <li>
-                                    <a asp-controller="Home" asp-action="Post" asp-route-category="DynamicsAX">Project Management </a>(1)
+                                <li style="margin-bottom:10px">
+                                    <a asp-controller="Home" asp-action="ProjectManagement">Project Management </a>(1)
                                 </li>
-                                @*<hr style="margin-top: 5px; margin-bottom:5px" />*@
-                                <li>
-                                    <a asp-controller="Home" asp-action="Post" asp-route-category="CloudFlows">Cloud Flows </a>(5)
+                                <li style="margin-bottom:10px">
+                                    <a asp-controller="Home" asp-action="DynamicsGP">Dynamics GP </a>(5)
                                 </li>
-                                @*<hr style="margin-top: 5px; margin-bottom:5px" />*@
-                                <li>
-                                    <a asp-controller="Home" asp-action="Post" asp-route-category="DynamicsNAV">Dynamics NAV </a>(5)
+                                <li style="margin-bottom:10px">
+                                    <a asp-controller="Home" asp-action="Nav">Dynamics NAV </a>(5)
                                 </li>
-                                @*<hr style="margin-top: 5px; margin-bottom:5px" />*@
                             </ul>
                         </div>
                     </div>
@@ -160,7 +149,7 @@
 
             <!-- Recent updates -->
             <div class="card" style="width: 18rem;">
-                <h6 class="card-header display-3" style="font-size:24px;">Recent updates</h6>
+                <h6 class="card-header">Recent updates</h6>
                 <div class="card-body">
                     <ul>
 

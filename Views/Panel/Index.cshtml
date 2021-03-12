@@ -1,31 +1,25 @@
 ﻿@model IEnumerable<Post>
 @{
-    ViewData["Title"] = "Admin Panel |";
+    ViewData["Title"] = "Admin Panel | Casterisks";
 }
 
-@*<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>*@
 <h2 class="display-3" style="font-size: 30px; margin-top:30px; margin-bottom: 30px;">Admin Panel</h2>
 
 <div class="container">
-    <div class="row mb-5">
-        <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="row mb-5" >
+        <div class="col-7">
             <input class="form-control" type="search" placeholder="Search here..." />
         </div>
-        <div class="col-md-4 col-sm-4 col-xs-12">
-            <input id="btnsubmit" class="btn btn-success" type="submit" value="Search" />
-            <input id="btnclear" class="btn btn-success" type="button" value="Clear" />
+        <div class="col">
+            <input id="btnsubmit" class="btn btn-primary" type="submit" value="Search" />
+            <input id="btnclear" class="btn btn-outline-dark" type="button" value="Clear" />
+            
         </div>
-        <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="col">
             <a class="btn btn-outline-dark" asp-controller="Panel" asp-action="Edit">
                 Add New Post
             </a>
         </div>
-    </div>
-    <div class="col-md-4 col-sm-4 col-xs-12">
-
     </div>
     <div class="row">
         <table class="table table-bordered">

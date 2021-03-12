@@ -26,7 +26,9 @@
     <header class="small-header">
         <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Chaminuka</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/content/static/Casterisks logo.png" style="width:50px; height:40px;" />
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -34,10 +36,37 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <li class="nav-item dropdown nav-user ">
+                            <a class="nav-link text-dark nav-link" id="navbarDropdownMenuLink2" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Community Forums
+                            </a>
+                            <div class="dropdown-menu justify-content-center nav-user-dropdown " aria-labelledby="navbarDropdownMenuLink2">
+                                <a class="dropdown-item" asp-controller="Home" asp-action="Azure">
+                                    Azure Cloud Services
+                                </a>
+                                <a class="dropdown-item" asp-controller="Home" asp-action="Coding">
+                                    Developer's Forum
+                                </a>
+                                <a class="dropdown-item" asp-controller="Home" asp-action="BusinessCentral">
+                                    Dynamics 365 Business Central
+                                </a>
+                                <a class="dropdown-item" asp-controller="Home" asp-action="AX365">
+                                    Dynamics 365 Finance and Operations
+                                </a>
+
+                                <a class="dropdown-item" asp-controller="Home" asp-action="DynamicsGP">
+                                    Dynamics GP
+                                </a>
+                                <a class="dropdown-item" asp-controller="Home" asp-action="ProjectManagement">
+                                    Project Management
+                                </a>
+
+                                <a class="dropdown-item" asp-controller="Home" asp-action="Nav">
+                                    Dynamics NAV
+                                </a>
+                            </div>
                         </li>
-                        
+
                         @if (User.Identity.IsAuthenticated)
                         {
                             @if (!User.IsInRole("Member"))
@@ -48,22 +77,12 @@
                             }
 
                         }
-
-                        @*@if (!User.Identity.IsAuthenticated)
-        {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Register">Register</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Sign In</a>
-            </li>
-        }*@
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container"style="margin-bottom:75px;">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -71,11 +90,11 @@
 
 
 
-    @*<footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted" >
         <div class="container">
-            &copy; 2021 - Chaminuka - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - Casterisks | All rights reserved <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>*@
+    </footer>
     
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

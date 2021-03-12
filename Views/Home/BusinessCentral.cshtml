@@ -1,0 +1,173 @@
+﻿@model IndexViewModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUsers> SignInManager
+@inject UserManager<ApplicationUsers> UserManager
+@{
+    //ViewData["Title"] = "Chaminuka";
+    ViewBag.Title = "Casterisks - Playing ground for tech professionals";
+    ViewBag.Description = "Playing grong for tech professionals";
+    ViewBag.Keywords = "blog programming tech dynamics azure software";
+    var base_path = Context.Request.PathBase;
+}
+
+
+
+<div class="text-center mt-lg-5 mb-lg-5">
+    <h1 class="display-4">Business Central forum</h1>
+    <p>
+        Start sharing knowledge <a asp-controller="Panel" asp-action="Edit">here</a>.
+    </p>
+</div>
+
+
+<div class="container">
+    <div class="row">
+
+        @*Blog entries*@
+        <div class="col-sm-9">
+            <ul>
+                @foreach (var post in Model.Posts.Where(un => un.Category == "Dynamics365BC"))
+                {
+                    <div class="blog-listing pb-0">
+
+                        <a class="a" asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">
+                            <h3 class="post-title display-3" style="font-size: 24px; color: #16568A;">
+                                @post.Title
+                            </h3>
+                        </a>
+
+                        <p class="post-subtitle">
+                            @post.Description
+                        </p>
+
+                        <p class="post-meta">
+                            <footer class="blockquote-footer">
+                                <cite title="Posted by" style="margin-left:15px;">
+                                    Posted by
+                                    @if (!String.IsNullOrEmpty(post.UserId))
+                                    {
+
+                                        var context = (UserManager.Users
+                                                        .Where(un => un.Id == post.UserId)
+                                                        .First()
+                                                        .UserName)?.ToString();
+
+                                        <a asp-controller="Profile" asp-action="Profile">@context</a>
+
+                                    }
+                                    else
+                                    {
+                                        <a href="#"></a>
+                                    } @post.Created
+                                </cite>
+                                <a asp-controller="Home" asp-route-tag="@post.Tags">@post.Tags</a>
+                            </footer>
+
+                        </p>
+                    </div>
+                    <hr>
+                }
+
+            </ul>
+
+            <div aria-label="...">
+                <ul class="pager">
+                    @if (Model.PageNumber > 1)
+                    {
+                        <li><a asp-action="Index" asp-controller="Home" asp-route-pageNumber="@(Model.PageNumber - 1)">Previous page</a></li>
+
+                    }
+                    @if (Model.NextPage)
+                    {
+                        <li><a asp-action="Index" asp-controller="Home" asp-route-pageNumber="@(Model.PageNumber + 1)">Next page</a></li>
+
+                    }
+                </ul>
+
+            </div>
+        </div>
+
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-sm-3 justify-content-sm-center ml-auto">
+
+            <div class="card text-center mb-3" style="width: 18rem; ">
+                <div class="card-body">
+                    <h6 class="card-title display-3" style="font-size:24px">Community Forums</h6>
+                    <div>
+                        <a class="btn btn-dark" asp-controller="Panel" asp-action="Edit">
+                            Ask question
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Search -->
+            <div class="card" style="width: 18rem;">
+                <h6 class="card-header">Search</h6>
+                <div class="card-body">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-append">
+                            <button class="btn btn-secondary" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="card my-4" style="width: 18rem;">
+                <h6 class="card-header">Categories</h6>
+                <div class="card-body">
+                    <div class="row">
+                        <div>
+                            <ul class="list-unstyled mb-0">
+                                <li style="margin-bottom:10px">
+                                    <a asp-controller="Home" asp-action="Azure">Azure </a>(3)
+                                </li>
+                                <li style="margin-bottom:10px">
+                                    <a asp-controller="Home" asp-action="BusinessCentral">Dynamics 365 Business Central </a>(4)
+                                </li>
+                                <li style="margin-bottom:10px">
+                                    <a asp-controller="Home" asp-action="AX365">Dynamics AX </a>(9)
+                                </li>
+                                <li style="margin-bottom:10px">
+                                    <a asp-controller="Home" asp-action="ProjectManagement">Project Management </a>(1)
+                                </li>
+                                <li style="margin-bottom:10px">
+                                    <a asp-controller="Home" asp-action="DynamicsGP">Dynamics GP </a>(5)
+                                </li>
+                                <li style="margin-bottom:10px">
+                                    <a asp-controller="Home" asp-action="Nav">Dynamics NAV </a>(5)
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent updates -->
+            <div class="card" style="width: 18rem;">
+                <h6 class="card-header">Recent updates</h6>
+                <div class="card-body">
+                    <ul>
+
+                        @foreach (var post in Model.Posts)
+                        {
+                            if (post.Id < 5)
+                            {
+                                <a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">
+                                    <p class="post-title">
+                                        @post.Title
+                                    </p>
+                                </a>
+                            }
+
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

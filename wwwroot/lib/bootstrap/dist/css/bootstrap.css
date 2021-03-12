@@ -4,6 +4,67 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+.pt-3-half {
+    padding-top: 1.4rem;
+}
+.ts-distribute-parent {
+    position: relative;
+    display: none;
+    min-height: 92px;
+}
+.ts-distribute-cont {
+    max-width: 100%;
+    overflow: hidden;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+}
+.ts-dist-type {
+    font-size: 14px;
+    color: #6a6a6a;
+    width: 100%;
+    text-align: center;
+    padding: 0px 0px 5px;
+}
+.ts-dist-score {
+    width: 100%;
+    font-size: 28px;
+    font-family: Proxima N W01 Smbd;
+    color: #6a6a6a;
+    text-align: center;
+    line-height: 40px;
+    padding-top: 5px;
+}
+.ts-channelScore-wrap {
+    border-right: 1px solid #b7b7b7;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: rgb(183, 183, 183);
+}
+.ts-dist-overflow {
+    box-shadow: 0 3px 6px 0 rgb(0 0 0 / 16%);
+}
+.clear-fix:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+.ts-dist-info {
+    width: 225px;
+    padding: 10px 0;
+    padding-top: 10px;
+    padding-right: 0px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    background-color: #ffffff;
+    /* box-shadow: 0 2px 2px 0 rgb(0 0 0 / 15%), 0 0 2px 0 rgb(0 0 0 / 12%); */
+    border-radius: 2px;
+    /* margin-right: 15px; */
+    line-height: initial;
+    border-radius: 2.5px;
+}
+.fl {
+    float: left;
+}
 .fa-thumbs-up:before {
     content: "\f164";
 }

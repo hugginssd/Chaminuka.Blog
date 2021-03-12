@@ -23,5 +23,6 @@ namespace WebApplication3.Data.Repository
         void UpdateLikes(Likes likes);
         void RemoveLikes(Likes likes);
         Task<bool> SaveChangesAsync();
+        ApplicationUsers GetProfile(string userName);
     }
 }

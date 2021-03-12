@@ -37,16 +37,8 @@ namespace WebApplication3.Controllers
                 return RedirectToAction("Index", new { pageNumber = 1, category });
             }
 
-
-            //var vm = new IndexViewModel
-            //{
-            //    PageNumber = pageNumber,
-            //    Posts = string.IsNullOrEmpty(category)? _repo.GetAllPosts(pageNumber) : _repo.GetAllPosts(category)
-            //};
-
             var vm = _repo.GetAllPosts(pageNumber);
-            //var posts 
-            //
+           
             return View(vm);
 
         }
@@ -112,16 +104,88 @@ namespace WebApplication3.Controllers
             return RedirectToAction("Post", new { Id = vm.PostId });
         }
 
-        public IActionResult Contact()
+        public IActionResult Contact() => View();
+
+        public IActionResult About() => View();
+
+        public IActionResult AX365(int pageNumber, string category)
         {
-            return View();
+            if (pageNumber < 1)
+            {
+                return RedirectToAction("AX365", new { pageNumber = 1, category });
+            }
+
+            var vm = _repo.GetAllPosts(pageNumber);
+
+            return View(vm);
         }
 
+        public IActionResult BusinessCentral(int pageNumber, string category)
+        {
+            if (pageNumber < 1)
+            {
+                return RedirectToAction("BusinessCentral", new { pageNumber = 1, category });
+            }
 
-        public IActionResult About()
-        {   
-            return View();
+            var vm = _repo.GetAllPosts(pageNumber);
+
+            return View(vm);
         }
+        public IActionResult Azure(int pageNumber, string category)
+        {
+            if (pageNumber < 1)
+            {
+                return RedirectToAction("Azure", new { pageNumber = 1, category });
+            }
 
+            var vm = _repo.GetAllPosts(pageNumber);
+
+            return View(vm);
+        }
+        public IActionResult DynamicsGP(int pageNumber, string category)
+        {
+            if (pageNumber < 1)
+            {
+                return RedirectToAction("DynamicsGP", new { pageNumber = 1, category });
+            }
+
+            var vm = _repo.GetAllPosts(pageNumber);
+
+            return View(vm);
+        }
+        public IActionResult ProjectManagement(int pageNumber, string category)
+        {
+            if (pageNumber < 1)
+            {
+                return RedirectToAction("ProjectManagement", new { pageNumber = 1, category });
+            }
+
+            var vm = _repo.GetAllPosts(pageNumber);
+
+            return View(vm);
+        }
+        public IActionResult Nav(int pageNumber, string category)
+        {
+            if (pageNumber < 1)
+            {
+                return RedirectToAction("Nav", new { pageNumber = 1, category });
+            }
+
+            var vm = _repo.GetAllPosts(pageNumber);
+
+            return View(vm);
+        }
+        public IActionResult Coding(int pageNumber, string category)
+        {
+            if (pageNumber < 1)
+            {
+                return RedirectToAction("Coding", new { pageNumber = 1, category });
+            }
+
+            var vm = _repo.GetAllPosts(pageNumber);
+
+            return View(vm);
+        }
+        public IActionResult Profile() => View();
     }
 }

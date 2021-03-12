@@ -2,108 +2,94 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUsers> SignInManager
 @inject UserManager<ApplicationUsers> UserManager
-
 @{
-    ViewData["Title"] = "Dynamics NAV";
+    //ViewData["Title"] = "Chaminuka";
+    ViewBag.Title = "Casterisks - Playing ground for tech professionals";
+    ViewBag.Description = "Playing grong for tech professionals";
+    ViewBag.Keywords = "blog programming tech dynamics azure software";
+    var base_path = Context.Request.PathBase;
 }
+
+
+
 <div class="text-center mt-lg-5 mb-lg-5">
-    <h5 class="display-4">@ViewData["Title"]</h5>
-    <p>Get help from experts and peers in forums, discover blogs, webinars, videos, events, and more.</p>
+    <h1 class="display-4">Dynamics Nav forum</h1>
+    <p>
+        Start sharing knowledge <a asp-controller="Panel" asp-action="Edit">here</a>.
+    </p>
 </div>
+
 
 <div class="container">
     <div class="row">
 
+        @*Blog entries*@
         <div class="col-sm-9">
+            <ul>
+                @foreach (var post in Model.Posts.Where(un => un.Category == "Nav"))
+                {
+                    <div class="blog-listing pb-0">
 
-            <div class="blog-listing pb-0">
-                <a class="a">
-                    <h3 class="post-title display-3" style="font-size: 24px; color: #16568A;">
-                        Man must explore, and this is exploration at its greatest
-                    </h3>
-                </a>
-                <p class="post-subtitle">
-                    Problems look mighty small from 150 miles up
-                </p>
+                        <a class="a" asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">
+                            <h3 class="post-title display-3" style="font-size: 24px; color: #16568A;">
+                                @post.Title
+                            </h3>
+                        </a>
 
-                <p class="post-meta">
-                    <footer class="blockquote-footer">
-                        <cite title="Posted by" style="margin-left:15px;">
-                            Posted by
-                            <a href="#">Start Bootstrap</a>
-                            on September 24, 2019
-                        </cite>
-                    </footer>
-                </p>
-            </div>
-            <hr>
-            <div class="post-preview">
-                <a class="a">
-                    <h2 class="post-title display-3" style="font-size: 24px; color: #16568A;">
-                        I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-                    </h2>
-                </a>
-                <p class="post-meta">
-                    <footer class="blockquote-footer">
-                        <cite title="Posted by" style="margin-left:15px;">
-                            Posted by
-                            <a href="#">Start Bootstrap</a>
-                            on September 24, 2019
-                        </cite>
-                    </footer>
-                </p>
-            </div>
-            <hr>
-            <div class="post-preview">
-                <a class="a">
-                    <h2 class="post-title display-3" style="font-size: 24px; color: #16568A;">
-                        Science has not yet mastered prophecy
-                    </h2>
-                </a>
-                <p class="post-subtitle">
-                    We predict too much for the next year and yet far too little for the next ten.
-                </p>
+                        <p class="post-subtitle">
+                            @post.Description
+                        </p>
 
-                <p class="post-meta">
-                    <footer class="blockquote-footer">
-                        <cite title="Posted by" style="margin-left:15px;">
-                            Posted by
-                            <a href="#">Start Bootstrap</a>
-                            on September 24, 2019
-                        </cite>
-                    </footer>
-                </p>
-            </div>
-            <hr>
-            <div class="post-preview">
-                <a class="a">
-                    <h2 class="post-title display-3" style="font-size: 24px; color: #16568A;">
-                        Failure is not an option
-                    </h2>
-                </a>
-                <p class="post-subtitle">
-                    Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-                </p>
-                <p class="post-meta">
-                    <footer class="blockquote-footer">
-                        <cite title="Posted by" style="margin-left:15px;">
-                            Posted by
-                            <a href="#">Start Bootstrap</a>
-                            on September 24, 2019
-                        </cite>
-                    </footer>
-                </p>
-            </div>
-            <hr>
-            <!-- Pager -->
-            <div class="clearfix">
-                <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+                        <p class="post-meta">
+                            <footer class="blockquote-footer">
+                                <cite title="Posted by" style="margin-left:15px;">
+                                    Posted by
+                                    @if (!String.IsNullOrEmpty(post.UserId))
+                                    {
+
+                                        var context = (UserManager.Users
+                                                        .Where(un => un.Id == post.UserId)
+                                                        .First()
+                                                        .UserName)?.ToString();
+
+                                        <a asp-controller="Profile" asp-action="Profile">@context</a>
+
+                                    }
+                                    else
+                                    {
+                                        <a href="#"></a>
+                                    } @post.Created
+                                </cite>
+                                <a asp-controller="Home" asp-route-tag="@post.Tags">@post.Tags</a>
+                            </footer>
+
+                        </p>
+                    </div>
+                    <hr>
+                }
+
+            </ul>
+
+            <div aria-label="...">
+                <ul class="pager">
+                    @if (Model.PageNumber > 1)
+                    {
+                        <li><a asp-action="Index" asp-controller="Home" asp-route-pageNumber="@(Model.PageNumber - 1)">Previous page</a></li>
+
+                    }
+                    @if (Model.NextPage)
+                    {
+                        <li><a asp-action="Index" asp-controller="Home" asp-route-pageNumber="@(Model.PageNumber + 1)">Next page</a></li>
+
+                    }
+                </ul>
+
             </div>
         </div>
 
 
         <!-- Sidebar Widgets Column -->
-        <div class="col-sm-3 ml-auto">
+        <div class="col-sm-3 justify-content-sm-center ml-auto">
 
             <div class="card text-center mb-3" style="width: 18rem; ">
                 <div class="card-body">
@@ -116,9 +102,10 @@
                 </div>
             </div>
 
-            <!-- Search-->
+
+            <!-- Search -->
             <div class="card" style="width: 18rem;">
-                <h5 class="card-header">Search</h5>
+                <h6 class="card-header">Search</h6>
                 <div class="card-body">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search for...">
@@ -129,30 +116,30 @@
                 </div>
             </div>
 
-            <!-- Categories-->
+            <!-- Categories -->
             <div class="card my-4" style="width: 18rem;">
-                <h5 class="card-header">Categories</h5>
+                <h6 class="card-header">Categories</h6>
                 <div class="card-body">
                     <div class="row">
                         <div>
                             <ul class="list-unstyled mb-0">
                                 <li style="margin-bottom:10px">
-                                    <a asp-controller="Home" asp-action="Post" asp-route-category="Azure">Azure </a>(3)
+                                    <a asp-controller="Home" asp-action="Azure">Azure </a>(3)
                                 </li>
                                 <li style="margin-bottom:10px">
-                                    <a asp-controller="Home" asp-action="Post" asp-route-category="Dynamics365BC">Dynamics 365 Business Central </a>(4)
+                                    <a asp-controller="Home" asp-action="BusinessCentral">Dynamics 365 Business Central </a>(4)
                                 </li>
                                 <li style="margin-bottom:10px">
-                                    <a asp-controller="Home" asp-action="Post" asp-route-category="DynamicsAX">Dynamics AX </a>(9)
+                                    <a asp-controller="Home" asp-action="AX365">Dynamics AX </a>(9)
                                 </li>
                                 <li style="margin-bottom:10px">
-                                    <a asp-controller="Home" asp-action="Post" asp-route-category="DynamicsAX">Project Management </a>(1)
+                                    <a asp-controller="Home" asp-action="ProjectManagement">Project Management </a>(1)
                                 </li>
                                 <li style="margin-bottom:10px">
-                                    <a asp-controller="Home" asp-action="Post" asp-route-category="CloudFlows">Cloud Flows </a>(5)
+                                    <a asp-controller="Home" asp-action="DynamicsGP">Dynamics GP </a>(5)
                                 </li>
                                 <li style="margin-bottom:10px">
-                                    <a asp-controller="Home" asp-action="Post" asp-route-category="DynamicsNAV">Dynamics NAV </a>(5)
+                                    <a asp-controller="Home" asp-action="Nav">Dynamics NAV </a>(5)
                                 </li>
                             </ul>
                         </div>
@@ -166,23 +153,21 @@
                 <div class="card-body">
                     <ul>
 
-                        @*@foreach (var post in Model.Posts)
+                        @foreach (var post in Model.Posts)
+                        {
+                            if (post.Id < 5)
                             {
-                                if (post.Id < 5)
-                                {*@
-                        <a asp-controller="Home" asp-action="Post">
-                            <p class="post-title">
-                                @*@post.Title*@
-                            </p>
-                        </a>
-                        @*}
+                                <a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">
+                                    <p class="post-title">
+                                        @post.Title
+                                    </p>
+                                </a>
+                            }
 
-                            }*@
+                        }
                     </ul>
                 </div>
             </div>
-
         </div>
-
     </div>
 </div>

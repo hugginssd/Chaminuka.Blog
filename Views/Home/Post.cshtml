@@ -8,118 +8,17 @@
     ViewBag.Keywords = $"{Model.Tags?.Replace(",", " ")} {Model.Category}";//"blog programming tech dynamics azure software";
 
 }
-<div class="card w-75">
-    <div class="card-body">
-        <h3>@Model.Title</h3>
-        <div class="row">
-            <p class="post-meta">
-                <cite title="Source Title" style="font-size:12px">
-                    Posted by
-                    @if (!String.IsNullOrEmpty(Model.UserId))
-                    {
-                        var context = UserManager.Users
-                                            .Where(un => un.Id == Model.UserId)
-                                            .FirstOrDefault()
-                                            .UserName;
-                        <a href="#">@context</a>
-                    }
-                    else
-                    {
-                        <a href="#">Anonymous</a>
-                    } @Model.Created
-                </cite>
-            </p>
-        </div>
-        @if (String.IsNullOrEmpty(Model.Image))
-        {
-            var image_path = $"/Image/{Model.Image}";
-            <img src="@image_path" />
-        }
-
-        <p>
-            @Html.Raw(Model.Body)
-        </p>
-        <p class="post-meta">
-            @if (!String.IsNullOrEmpty(Model.Tags))
-            {
-                string[] tags = @Model.Tags.Split(',');
-                foreach (var tag in tags)
-                {
-                    <a class="btn"
-                       style="display: inline-block; border-radius: 24px;
-                       background-color: #fff !important; border: solid 1px #e6e6e6;
-                       padding: 4px 6px; margin-right: 4px; font-size: 15px; text-decoration: underline;"
-                       asp-controller="Home" asp-route-tag="@Model.Tags">@tag</a>
-                }
-            }
-        </p>
-        <div style="margin-right: 15px">
-            <a href="#" class="text-dark" style="margin-right: 15px" role="checkbox" asp-controller="Likes" asp-action="Like">
-                <img src="https://img.icons8.com/material-outlined/72/like-message.png" alt="" class="user-avatar-md rounded-circle" style="width:15px;height:15px;" />
-                Likes
-            </a>
-            <a href="#" class="text-dark" style="margin-left: 15px">
-                Action
-            </a>
-        </div>
-    </div>
-</div>
-<div style="margin-top: 25px; margin-bottom:25px">
-    <h5>Replies (@Model.MainComments.Count())</h5>
-</div>
-<div>
-    @{
-        await Html.RenderPartialAsync("_MainComment", new CommentViewModel { PostId = Model.Id, MainCommentId = 0 });
-    }
-    @foreach (var c in Model.MainComments)
-    {
-        <div class="card w-75" style="margin-top: 25px">
+        <div class="card w-75">
             <div class="card-body">
-                <p>
-                    @c.Message
-                </p>
-                <footer class="blockquote-footer">
-                    <cite title="Source Title">
-                        Replied by :
-                        @if (!String.IsNullOrEmpty(c.UserId))
-                        {
-                            var context = UserManager.Users
-                                                .Where(un => un.Id == c.UserId)
-                                                .FirstOrDefault()
-                                                .UserName;
-                            <a href="#">@context</a>
-                        }
-                        else
-                        {
-                            <a href="#">Anonymous</a>
-                        } @c.Created
-                    </cite>
-                </footer>
-            </div>
-        </div>
-        <div style="margin-left: 25px; margin-top:25px; margin-bottom:15px;">
-            <h6>Comments (@c.SubComments.Count())</h6>
-        </div>
-        <div>
-
-            @{
-                await Html.RenderPartialAsync("_MainComment", new CommentViewModel { PostId = Model.Id, MainCommentId = c.Id });
-            }
-        </div>
-        @foreach (var cm in c.SubComments)
-        {
-            <div class="card w-75" style="margin-left: 25px; margin-top:10px; margin-bottom:25px;">
-                <div class="card-body">
-                    <p>
-                        @cm.Message
-                    </p>
-                    <footer class="blockquote-footer">
-                        <cite title="Source Title">
-                            Commented by :
-                            @if (!String.IsNullOrEmpty(cm.UserId))
+                <h3>@Model.Title</h3>
+                <div class="row">
+                    <p class="post-meta ml-3">
+                        <cite title="Source Title" style="font-size:12px">
+                            Posted by
+                            @if (!String.IsNullOrEmpty(Model.UserId))
                             {
                                 var context = UserManager.Users
-                                                    .Where(un => un.Id == cm.UserId)
+                                                    .Where(un => un.Id == Model.UserId)
                                                     .FirstOrDefault()
                                                     .UserName;
                                 <a href="#">@context</a>
@@ -127,17 +26,117 @@
                             else
                             {
                                 <a href="#">Anonymous</a>
-                            } @cm.Created
+                            } @Model.Created
                         </cite>
-                    </footer>
+                    </p>
+                </div>
+                @if (String.IsNullOrEmpty(Model.Image))
+                {
+                    var image_path = $"/Image/{Model.Image}";
+                    <img src="@image_path" />
+                }
+
+                <p>
+                    @Html.Raw(Model.Body)
+                </p>
+                <p class="post-meta">
+                    @if (!String.IsNullOrEmpty(Model.Tags))
+                    {
+                        string[] tags = @Model.Tags.Split(',');
+                        foreach (var tag in tags)
+                        {
+                            <a class="btn"
+                               style="display: inline-block; border-radius: 24px;
+                       background-color: #fff !important; border: solid 1px #e6e6e6;
+                       padding: 4px 6px; margin-right: 4px; font-size: 15px; text-decoration: underline;"
+                               asp-controller="Home" asp-route-tag="@Model.Tags">@tag</a>
+                        }
+                    }
+                </p>
+                <div style="margin-right: 15px">
+                    <a href="#" class="text-dark" style="margin-right: 15px" role="checkbox">
+                        <img src="https://img.icons8.com/material-outlined/72/like-message.png" alt="" class="user-avatar-md rounded-circle" style="width:15px;height:15px;" />
+                        Likes
+                    </a>
+                    <a href="#" class="text-dark" style="margin-left: 15px">
+                        Action
+                    </a>
                 </div>
             </div>
-        }
+        </div>
+        <div style="margin-top: 25px; margin-bottom:25px">
+            <h5>Replies (@Model.MainComments.Count())</h5>
+        </div>
+        <div>
+            @{
+                await Html.RenderPartialAsync("_MainComment", new CommentViewModel { PostId = Model.Id, MainCommentId = 0 });
+            }
+            @foreach (var c in Model.MainComments)
+            {
+                <div class="card w-75" style="margin-top: 25px">
+                    <div class="card-body">
+                        <p>
+                            @c.Message
+                        </p>
+                        <footer class="blockquote-footer">
+                            <cite title="Source Title">
+                                Replied by :
+                                @if (!String.IsNullOrEmpty(c.UserId))
+                                {
+                                    var context = UserManager.Users
+                                                        .Where(un => un.Id == c.UserId)
+                                                        .FirstOrDefault()
+                                                        .UserName;
+                                    <a href="#">@context</a>
+                                }
+                                else
+                                {
+                                    <a href="#">Anonymous</a>
+                                } @c.Created
+                            </cite>
+                        </footer>
+                    </div>
+                </div>
+                <div style="margin-left: 25px; margin-top:25px; margin-bottom:15px;">
+                    <h6>Comments (@c.SubComments.Count())</h6>
+                </div>
+                <div>
+
+                    @{
+                        await Html.RenderPartialAsync("_MainComment", new CommentViewModel { PostId = Model.Id, MainCommentId = c.Id });
+                    }
+                </div>
+                @foreach (var cm in c.SubComments)
+                {
+                    <div class="card w-75" style="margin-left: 25px; margin-top:10px; margin-bottom:25px;">
+                        <div class="card-body">
+                            <p>
+                                @cm.Message
+                            </p>
+                            <footer class="blockquote-footer">
+                                <cite title="Source Title">
+                                    Commented by :
+                                    @if (!String.IsNullOrEmpty(cm.UserId))
+                                    {
+                                        var context = UserManager.Users
+                                                            .Where(un => un.Id == cm.UserId)
+                                                            .FirstOrDefault()
+                                                            .UserName;
+                                        <a href="#">@context</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#">Anonymous</a>
+                                    } @cm.Created
+                                </cite>
+                            </footer>
+                        </div>
+                    </div>
+                }
 
 
 
-    }
-</div>
-
+            }
+        </div>
 
 

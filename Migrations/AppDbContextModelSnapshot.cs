@@ -277,6 +277,38 @@ namespace WebApplication3.Migrations
                     b.ToTable("SubComments");
                 });
 
+            modelBuilder.Entity("WebApplication3.Models.Likes.Likes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MainCommentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubCommentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Likes");
+                });
+
             modelBuilder.Entity("WebApplication3.Models.MailRequest", b =>
                 {
                     b.Property<int>("Id")
@@ -346,6 +378,32 @@ namespace WebApplication3.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("WebApplication3.Models.Profile.Profiles", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BadgeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BadgeUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Bio")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Profiles");
                 });
 
             modelBuilder.Entity("WebApplication3.Models.ApplicationUsers", b =>
@@ -461,6 +519,15 @@ namespace WebApplication3.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("WebApplication3.Models.Likes.Likes", b =>
+                {
+                    b.HasOne("WebApplication3.Models.ApplicationUsers", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("WebApplication3.Models.MailRequest", b =>
                 {
                     b.HasOne("WebApplication3.Models.ApplicationUsers", "User")
@@ -471,6 +538,15 @@ namespace WebApplication3.Migrations
                 });
 
             modelBuilder.Entity("WebApplication3.Models.Post", b =>
+                {
+                    b.HasOne("WebApplication3.Models.ApplicationUsers", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebApplication3.Models.Profile.Profiles", b =>
                 {
                     b.HasOne("WebApplication3.Models.ApplicationUsers", "User")
                         .WithMany()
