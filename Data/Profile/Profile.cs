@@ -34,26 +34,27 @@ namespace WebApplication3.Data.Profile
                 Posts = _ctx.Posts
                        .Where(un => un.UserId == _userManager.Users.First().Id)
                        .ToList()
-        };
+            };
         }
 
         public Profiles GetProfile(string userId)
         {
             var profile = (from p in _ctx.Profiles
-                    join u in _ctx.Users
-                    on p.UserId equals u.Id
-                    where p.UserId == userId    
-                    select new Profiles
-                    { 
-                      Bio = p.Bio,
-                       Company = p.Company,
-                        Industry = p.Industry,
-                         PrimaryRole = p.PrimaryRole,
-                          Location = p.Location,
-                           Type = p.Type,
-                            User = (ApplicationUsers)u
-                            
-                    }).FirstOrDefault();
+                           join u in _ctx.Users
+                           on p.UserId equals u.Id
+                           where p.UserId == userId    
+                            select new Profiles
+                            { 
+                                Id = p.Id,
+                                Bio = p.Bio,
+                                Company = p.Company,
+                                Industry = p.Industry,
+                                    PrimaryRole = p.PrimaryRole,
+                                    Location = p.Location,
+                                    Type = p.Type,
+                                    User = (ApplicationUsers)u
+
+                            }).FirstOrDefault();
 
 
             return profile;
@@ -76,6 +77,11 @@ namespace WebApplication3.Data.Profile
         public string GetUserId(string userName)
         {
             return _ctx.Users.Where(un => un.UserName == userName).FirstOrDefault().Id;
+        }
+
+        public void UpdateUser(ApplicationUsers users)
+        {
+            _ctx.Users.Update(users);
         }
     }
 }

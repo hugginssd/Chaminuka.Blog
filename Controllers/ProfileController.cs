@@ -45,6 +45,7 @@ namespace WebApplication3.Controllers
             var cp = _profile.GetProfile(_profile.GetUserId(userName));
             return View(new ProfileViewModel
             {
+                Id  = cp.Id,
                 FirstName = cp.User.FirstName,
                 LastName = cp.User.LastName,
                 Bio = cp.Bio,
@@ -54,6 +55,7 @@ namespace WebApplication3.Controllers
                 Type = cp.Type,
                 PrimaryRole = cp.PrimaryRole,
                 Industry = cp.Industry
+                //User = cp.User
 
             });
 
@@ -74,7 +76,22 @@ namespace WebApplication3.Controllers
 
             };
 
-            _profile.AddProfile(profile);
+            var users = new ApplicationUsers
+            {
+                FirstName = pvm.FirstName,
+                LastName = pvm.LastName
+            };
+            if (pvm.Id>0)
+            {
+                //_profile.UpdateProfile(profile);
+            }
+            else
+            {
+                _profile.AddProfile(profile);
+            }
+
+            _profile.UpdateUser(users);
+
             if (await _profile.SaveChangesAsync())
             {
                 return RedirectToAction("MyProfile", "Profile");

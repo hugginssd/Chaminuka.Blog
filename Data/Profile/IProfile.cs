@@ -15,6 +15,7 @@ namespace WebApplication3.Data.Profile
         void UpdateProfile(Profiles profiles);
         string GetUserId(string userName);
         ProfileViewModel GetMyPosts();
-        Task<bool> SaveChangesAsync();  
+        Task<bool> SaveChangesAsync();
+        void UpdateUser(ApplicationUsers users);
     }
 }
