@@ -29,9 +29,6 @@ namespace WebApplication3.Data.Profile
 
         public ProfileViewModel GetMyPosts()
         {
-            //return _ctx.Posts
-            //           .Where(un => un.UserId == _userManager.Users.First().Id)
-            //           .ToList();
             return new ProfileViewModel
             {
                 Posts = _ctx.Posts
@@ -40,20 +37,26 @@ namespace WebApplication3.Data.Profile
         };
         }
 
-        public Profiles GetProfile(string userName)
+        public Profiles GetProfile(string userId)
         {
-            //var context = from c in _ctx.Users
-            //              join p in _ctx.Profiles
-            //              on c.Id equals p.UserId
-            //              select new ProfileViewModel
-            //              {
-            //                  Bio = p.Bio,
-            //                  BadgeName = p.BadgeName,
-            //                  BadgeUrl  = p.BadgeUrl,
-            //                  User      = p.User
-            //              };
+            var profile = (from p in _ctx.Profiles
+                    join u in _ctx.Users
+                    on p.UserId equals u.Id
+                    where p.UserId == userId    
+                    select new Profiles
+                    { 
+                      Bio = p.Bio,
+                       Company = p.Company,
+                        Industry = p.Industry,
+                         PrimaryRole = p.PrimaryRole,
+                          Location = p.Location,
+                           Type = p.Type,
+                            User = (ApplicationUsers)u
+                            
+                    }).FirstOrDefault();
 
-            return _ctx.Profiles.Select();
+
+            return profile;
         }
 
         public void UpdateProfile(Profiles profiles)
@@ -68,6 +71,11 @@ namespace WebApplication3.Data.Profile
                 return true;
             }
             return false;
+        }
+
+        public string GetUserId(string userName)
+        {
+            return _ctx.Users.Where(un => un.UserName == userName).FirstOrDefault().Id;
         }
     }
 }

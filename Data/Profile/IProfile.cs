@@ -10,10 +10,10 @@ namespace WebApplication3.Data.Profile
 {
     public interface IProfile
     {
-        Profiles GetProfile(string userName);
+        Profiles GetProfile(string userId); 
         void AddProfile(Profiles profile);
         void UpdateProfile(Profiles profiles);
-
+        string GetUserId(string userName);
         ProfileViewModel GetMyPosts();
         Task<bool> SaveChangesAsync();  
     }

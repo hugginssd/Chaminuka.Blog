@@ -37,10 +37,26 @@ namespace WebApplication3.Controllers
             return View(myPosts);
         }
 
-        public IActionResult Update()
+        [HttpGet]
+        public IActionResult Update(string userName)
         {
-            
-            return View();
+            Console.WriteLine("\n"+_profile.GetUserId(userName)+"\n");
+                
+            var cp = _profile.GetProfile(_profile.GetUserId(userName));
+            return View(new ProfileViewModel
+            {
+                FirstName = cp.User.FirstName,
+                LastName = cp.User.LastName,
+                Bio = cp.Bio,
+                User = cp.User,
+                Company = cp.Company,
+                Location = cp.Location,
+                Type = cp.Type,
+                PrimaryRole = cp.PrimaryRole,
+                Industry = cp.Industry
+
+            });
+
         }
         [HttpPost]
         public async Task<IActionResult> Update(ProfileViewModel pvm)
