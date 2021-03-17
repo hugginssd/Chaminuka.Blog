@@ -60,8 +60,8 @@ namespace WebApplication3.Controllers
             });
 
         }
-        [HttpPost]
-        public async Task<IActionResult> Update(ProfileViewModel pvm)
+        [HttpPut]
+        public async Task<IActionResult> UpdateProfile(ProfileViewModel pvm)    
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var profile = new Profiles
@@ -83,7 +83,7 @@ namespace WebApplication3.Controllers
             };
             if (pvm.Id>0)
             {
-                //_profile.UpdateProfile(profile);
+                _profile.UpdateProfile(profile);
             }
             else
             {

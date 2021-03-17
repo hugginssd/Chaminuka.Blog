@@ -10,8 +10,14 @@
 
 <div class="container">
     <div class="row">
-        <form asp-controller="Profile" asp-action="Update" method="post" enctype="multipart/form-data">
+        <form asp-controller="Profile" asp-action="UpdateProfile" method="put" enctype="multipart/form-data">
 
+            <div class="row">
+                <div>
+                    <label>Bio</label>
+                    <textarea class="form-control" id="editor" asp-for="Bio"></textarea>
+                </div>
+            </div>
             <div class="row">
                 <div class="col">
                     <div>
@@ -22,10 +28,89 @@
                         <label>Last name</label>
                         <input class="form-control" type="text" asp-for="LastName" />
                     </div>
-                </div>
-                <div class="col">
 
+                    <div>
+                        <label>Company</label>
+                        <input class="form-control" type="text" asp-for="Company" />
+                    </div>
+                    <div>
+                        <label>Industry</label>
+                        <select class="custom-select" asp-for="Industry">
+                            <option value=" ">Select Industry</option>
+                            <option value="Aerospace">Aerospace</option>
+                            <option value="Agriculture">Agriculture</option>
+                            <option value="Automotive">Automotive</option>
+                            <option value="Banking and Capital Markets">Banking and Capital Markets</option>
+                            <option value="Chemical/Agrochemical">Chemical/Agrochemical</option>
+                            <option value="Computer">Computer</option>
+                            <option value="Construction">Construction</option>
+                            <option value="Consumer Goods">Consumer Goods</option>
+                            <option value="Defense and Intelligence">Defense &amp; Intelligence</option>
+                            <option value="Education">Education</option>
+                            <option value="Energy">Energy</option>
+                            <option value="Financial Services">Financial Services</option>
+                            <option value="Food">Food</option>
+                            <option value="Government">Government</option>
+                            <option value="Health">Health</option>
+                            <option value="Hospitality">Hospitality</option>
+                            <option value="Information Technology" selected="selected">Information Technology</option>
+                            <option value="Insurance">Insurance</option>
+                            <option value="Manufacturing">Manufacturing</option>
+                            <option value="Media and Communications">Media and Communications</option>
+                            <option value="Media and Entertainment">Media and Entertainment</option>
+                            <option value="Mining">Mining</option>
+                            <option value="Pharmaceutical">Pharmaceutical</option>
+                            <option value="Retail">Retail</option>
+                            <option value="Telecommunications">Telecommunications</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Utilities">Utilities</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Location</label>
+                        <input class="form-control" asp-for="Location">
+                    </div>
+                    <div>
+                        <label>Primary role</label>
+                        <select class="custom-select" asp-for="PrimaryRole">
+                            <option selected>Choose your role</option>
+                            <option>Business Analyst</option>
+                            <option>Business Manager</option>
+                            <option>Consultant</option>
+                            <option>Software Developer</option>
+                            <option>Educator</option>
+                            <option>End User</option>
+                            <option>Executive</option>
+                            <option>IT Manager</option>
+                            <option>IT Professional</option>
+                            <option>Solution Architect</option>
+                            <option>Student</option>
+                            <option>System Administrator</option>
+                            <option>Systems Administrator</option>
+                            <option>Systems Analyst</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Type</label>
+                        <select class="custom-select" asp-for="Type">
+                            <option selected>Select type</option>
+                            <option>Academic User</option>
+                            <option>Customer</option>
+                            <option>ISV</option>
+                            <option>Microsoft Employee</option>
+                            <option>Microsoft Partner</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <input type="hidden" asp-for="UserId" />
+                        <input type="hidden" asp-for="Id" />
+                    </div>
                 </div>
+                @*col2*@
                 <div class="col ml-4">
                     <div class="mt-1" style="width: 18rem;">
                         <img src="https://lledogrupo.com/wp-content/uploads/2018/04/user-img-1.png"
@@ -36,68 +121,14 @@
                         </div>
                     </div>
                     <div class="ml-4">
-                        <a role="button" class="btn btn-outline-dark">
+                        <a class="btn btn-outline-dark" asp-controller="Profile" asp-action="Update">
                             Upload
                         </a>
                     </div>
                 </div>
             </div>
-            <div>
-                <label>Bio</label>
-                <textarea id="editor" asp-for="Bio"></textarea>
-            </div>
-
-            <div>
-                <label>Company</label>
-                <input class="form-control" type="text" asp-for="Company" />
-            </div>
-            <div>
-                <label>Industry</label>
-                <select class="custom-select" asp-for="Industry">
-                    <option selected>Choose your industry</option>
-                    <option>Aviation</option>
-                    <option>Computer Software</option>
-                    <option></option>
-                    <option></option>
-                    <option></option>
-                    <option></option>
-                </select>
-            </div>
-
-            <div>
-            <label>Location</label>
-            <select class="custom-select" asp-for="Location">
-                <option selected>Choose your location</option>
-                <option>Harare</option>
-                <option></option>
-                <option></option>
-                <option></option>
-            </select>
-            </div>
-            <div>
-            <label>Primary role</label>
-            <select class="custom-select" asp-for="PrimaryRole">
-                <option selected>Choose your role</option>
-                <option>Software Developer</option>
-                <option></option>
-                <option></option>
-                <option></option>
-            </select>
-            </div>
-            <div>
-                <label>Type</label>
-                <select class="custom-select" asp-for="Type">
-                    <option selected> Choose your type</option>
-                    <option>Engineer</option>
-                    <option></option>
-                </select>
-            </div>
-
-            <div>
-                <input type="hidden" asp-for="UserId" />
-            </div>
-            <button class="btn btn-dark mt-5">Update</button>
-
+                <button class="btn btn-dark mt-5">Update</button>
+            
         </form>
 
 
