@@ -110,22 +110,34 @@
                         <input type="hidden" asp-for="Id" />
                     </div>
                 </div>
+
                 @*col2*@
-                <div class="col ml-4">
-                    <div class="mt-1" style="width: 18rem;">
-                        <img src="https://lledogrupo.com/wp-content/uploads/2018/04/user-img-1.png"
-                             style="width:85px; height:85px; margin-top:15px; margin-left:30px;"
-                             class="card-img-top rounded-circle" alt="...">
-                        <div class="card-body">
-                            <h5 class="display-3" style="font-size: 20px;">Profile photo</h5>
-                        </div>
+
+
+                <div class="col-sm-2 imgUp mt-3 ml-3 justify-content-center">
+                    <div class="imagePreview rounded-circle" style=" width: 100%;
+                                                      height: 160px;
+                                                      background-position: center center;
+                                                      background: url(http://cliquecities.com/assets/no-image-e3699ae23f866f6cbdf8ba2443ee5c4e.jpg);
+                                                      background-color: #fff;
+                                                      background-size: cover;
+                                                      background-repeat: no-repeat;
+                                                      display: inline-block;
+                                                      box-shadow: 0px -3px 6px 2px rgba(0,0,0,0.2);">
                     </div>
-                    <div class="ml-4">
-                        <a class="btn btn-outline-dark" asp-controller="Profile" asp-action="Update">
-                            Upload
-                        </a>
+                    <div class="display-3 ml-4" style="font-size: 20px;">
+                        <label>Profile photo</label>
                     </div>
+                    <label class="btn btn-primary ml-4">
+                        Upload<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;">
+                    </label>
                 </div>
+
+                <div class="col">
+
+                </div>
+                <!-- col-2 -->
+
             </div>
                 <button class="btn btn-dark mt-5">Update</button>
             
@@ -201,6 +213,32 @@
             });
     </script>
 
+<script>
+    $(".imgAdd").click(function () {
+        $(this).closest(".row").find('.imgAdd').before('<div class="col-sm-2 imgUp"><div class="imagePreview"></div><label class="btn btn-primary">Upload<input type="file" class="uploadFile img" value="Upload Photo" style="width:0px;height:0px;overflow:hidden;"></label><i class="fa fa-times del"></i></div>');
+    });
+    $(document).on("click", "i.del", function () {
+        $(this).parent().remove();
+    });
+    $(function () {
+        $(document).on("change", ".uploadFile", function () {
+            var uploadFile = $(this);
+            var files = !!this.files ? this.files : [];
+            if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+            if (/^image/.test(files[0].type)) { // only image file
+                var reader = new FileReader(); // instance of the FileReader
+                reader.readAsDataURL(files[0]); // read the local file
+
+                reader.onloadend = function () { // set image data as background of div
+                    //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+                    uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(" + this.result + ")");
+                }
+            }
+
+        });
+    });
+</script>
 
     @*<script>
     const $tableID = $('#table'); const $BTN = $('#export-btn'); const $EXPORT = $('#export');

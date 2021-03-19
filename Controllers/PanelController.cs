@@ -113,7 +113,7 @@ namespace WebApplication3.Controllers
 
         }
        
-        [Authorize(Roles ="Admin,Member")]
+        //[Authorize(Roles ="Admin")]
         [HttpGet]
         public async Task<IActionResult> Remove(int id)
         {
