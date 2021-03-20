@@ -1,4 +1,9 @@
 ﻿@model IEnumerable<Post>
+@using Microsoft.AspNetCore.Identity
+@using WebApplication3.Data
+@inject AppDbContext _ctx
+@inject SignInManager<ApplicationUsers> SignInManager
+@inject UserManager<ApplicationUsers> UserManager
 @{
     ViewData["Title"] = "Admin Panel | Casterisks";
 }
@@ -6,14 +11,14 @@
 <h2 class="display-3" style="font-size: 30px; margin-top:30px; margin-bottom: 30px;">Admin Panel</h2>
 
 <div class="container">
-    <div class="row mb-5" >
+    <div class="row mb-5">
         <div class="col-7">
             <input class="form-control" type="search" placeholder="Search here..." />
         </div>
         <div class="col">
             <input id="btnsubmit" class="btn btn-primary" type="submit" value="Search" />
             <input id="btnclear" class="btn btn-outline-dark" type="button" value="Clear" />
-            
+
         </div>
         <div class="col">
             <a class="btn btn-outline-dark" asp-controller="Panel" asp-action="Edit">
@@ -27,6 +32,8 @@
                 <tr>
                     <th>Id</th>
                     <th>Title</th>
+                    <th>Posted on</th>
+                    <th>Posted by</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -36,6 +43,8 @@
                     <tr>
                         <td>@post.Id</td>
                         <td>@post.Title</td>
+                        <td>@post.Created</td>
+                        <td> <a asp-controller="Profile" asp-action="Profile">@_ctx.Users.Where(un => un.Id == post.UserId).FirstOrDefault().UserName</a></td>
                         <td>
                             <a asp-controller="Panel" asp-action="Edit" asp-route-id="@post.Id">
                                 Edit
