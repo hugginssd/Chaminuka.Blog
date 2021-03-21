@@ -91,12 +91,12 @@ namespace WebApplication3
             {
                 endpoints.MapControllerRoute(
                     name: "home",
-                    pattern: "Home/Post/{id?}/{*article}",
+                    pattern: "Home/Post/{name?}",
                     defaults: new { controller = "Home", action = "Post" });
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{name?}/{**title}");
+                    pattern: "{controller=Home}/{action=Index}/{title?}");
             });
         }
     }
